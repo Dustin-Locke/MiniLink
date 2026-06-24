@@ -1,0 +1,43 @@
+
+<div class="page">
+
+  <div class="content">
+
+    <div class="card">
+
+      <h1>Mini Link</h1>
+      <p class="subtitle">Create a short link instantly</p>
+
+      <!-- CREATE FORM -->
+      <div class="form">
+        <input
+          type="text"
+          placeholder="Enter long URL..."
+          [(ngModel)]="longUrl"
+        />
+        <input
+          type="text"
+          placeholder="Custom alias (optional)"
+          [(ngModel)]="customAlias"
+        />
+
+        <button class="primary" (click)="createLink()" [disabled]="loading">
+          {{ loading ? 'Creating...' : 'Create' }}
+        </button>
+      </div>
+
+    </div>
+
+    <div *ngIf="shortUrl" class="result">
+      <p>Short Link:</p>
+      <a [href]="shortUrl" target="_blank">{{ shortUrl }}</a>
+    </div>
+
+    <div *ngIf="error" class="error">
+      {{ error }}
+    </div>
+
+  </div>
+</div>
+
+
