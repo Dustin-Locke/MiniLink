@@ -1,15 +1,19 @@
 package locke.dustin.minilink.service;
 
+import locke.dustin.minilink.util.MiniLinkMapper;
 import locke.dustin.minilink.dto.MiniLinkRequest;
 import locke.dustin.minilink.dto.MiniLinkResponse;
 import locke.dustin.minilink.entity.MiniLink;
 import locke.dustin.minilink.repository.MiniLinkRepository;
+import locke.dustin.minilink.util.exception.ExistingAliasException;
+import locke.dustin.minilink.util.exception.ExistingUrlException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -17,41 +21,71 @@ public class MiniLinkService {
 
     private final MiniLinkRepository repo;
 
+    public List<MiniLinkResponse> getAllLinks() {
+        List<MiniLink> miniLinks = repo.findAll();
+        return miniLinks
+                .stream()
+                .map( MiniLinkMapper::toResponse )
+                .collect( Collectors.toList( ) );
+    }
+
     public String generateMiniCode() {
         return UUID.randomUUID( )
                 .toString()
                 .substring( 0, 8);
     }
 
-    public MiniLinkResponse createMiniLink( MiniLinkRequest request ) {
+    public MiniLinkResponse createMiniLink(MiniLinkRequest request) {
 
-        String code = generateMiniCode();
+        String normalizedUrl = normalizeUrl( request.originalUrl() );
+        String code;
 
-        if (request.customAlias() != null &&
-            !request.customAlias().isBlank()) {
+        if ( repo.existsByOriginalUrl( request.originalUrl( ) ) ||
+             repo.existsByOriginalUrl( normalizedUrl )) {
+            throw new ExistingUrlException( normalizedUrl );
+        }
+
+        if (request.customAlias() != null && !request.customAlias().isBlank()) {
 
             if (repo.existsByMiniCode(request.customAlias())) {
-                throw new ResponseStatusException(
-                        HttpStatus.CONFLICT,
-                        "Alias already exists"
+                throw new ExistingAliasException(
+                        request.customAlias()
                 );
             }
+
+            code = request.customAlias();
 
         } else {
             code = generateMiniCode();
 
-            while ( repo.existsByMiniCode( code ) ) {
-                code = generateMiniCode( );
+            while (repo.existsByMiniCode(code)) {
+                code = generateMiniCode();
             }
         }
-        code = request.customAlias( );
+
+
 
         MiniLink miniLink = new MiniLink();
-        miniLink.setOriginalUrl( request.originalUrl() );
-        miniLink.setMiniCode( code );
+        miniLink.setOriginalUrl(normalizedUrl);
+        miniLink.setMiniCode(code);
 
-        repo.save( miniLink );
+        repo.save(miniLink);
 
-        return new MiniLinkResponse( "http://localhost:8080/api/" + code );
+        return MiniLinkMapper.toResponse(miniLink);
+    }
+
+    private String normalizeUrl(String url) {
+
+        if (!url.startsWith("http://")
+            && !url.startsWith("https://")) {
+
+            url = "https://" + url;
+        }
+
+        return url;
+    }
+
+    public void deleteById ( Long id ) {
+        repo.deleteById( id );
     }
 }

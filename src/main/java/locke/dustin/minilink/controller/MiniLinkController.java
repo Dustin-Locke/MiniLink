@@ -6,31 +6,32 @@ import locke.dustin.minilink.dto.MiniLinkResponse;
 import locke.dustin.minilink.entity.MiniLink;
 import locke.dustin.minilink.repository.MiniLinkRepository;
 import locke.dustin.minilink.service.MiniLinkService;
+import locke.dustin.minilink.util.exception.MiniLinkNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
 public class MiniLinkController {
 
-    @Autowired
-    MiniLinkRepository repo;
-    @Autowired
-    MiniLinkService    service;
+
+    private final MiniLinkRepository repo;
+    private final MiniLinkService    service;
 
     @GetMapping("/{miniCode}")
     public ResponseEntity<Void> redirect ( @PathVariable String miniCode ) {
         MiniLink miniUrl = repo.findByMiniCode( miniCode )
                                .orElseThrow(
-                                       () -> new ResponseStatusException(
-                                               HttpStatus.NOT_FOUND
+                                       () -> new MiniLinkNotFoundException(
+                                               HttpStatus.NOT_FOUND,
+                                               miniCode
                                        ) );
 
         return ResponseEntity.status( HttpStatus.FOUND )
@@ -48,6 +49,16 @@ public class MiniLinkController {
 
         return ResponseEntity.status(HttpStatus.CREATED)
                              .body(response);
+    }
+
+    @GetMapping("/links")
+    public List<MiniLinkResponse> getAllLinks() {
+        return service.getAllLinks();
+    }
+
+    @DeleteMapping
+    public void  delete( Long id ) {
+        service.deleteById( id );
     }
 
 }
