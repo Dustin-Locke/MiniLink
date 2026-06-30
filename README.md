@@ -90,8 +90,14 @@ Response:
 
 ```json
 {
+  {
     "miniCode": "26981388",
     "originalUrl": "https://www.google.com"
+  },
+  {
+    "miniCode": "rick-roll",
+    "originalUrl": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+  }
 }
 ```
 
