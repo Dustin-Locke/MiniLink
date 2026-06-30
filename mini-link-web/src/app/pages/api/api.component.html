@@ -1,0 +1,46 @@
+<div class="page">
+  <div class="card">
+
+    <div class="header">
+      <h1>API</h1>
+      <p class="subtitle">Available endpoints for Mini Link</p>
+    </div>
+
+    <table class="api-table">
+      <thead>
+      <tr>
+        <th>Method</th>
+        <th>Endpoint</th>
+        <th>Description</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr>
+        <td><span class="method post">POST</span></td>
+        <td><code>/api</code></td>
+        <td>Create a short link</td>
+      </tr>
+
+      <tr>
+        <td><span class="method get">GET</span></td>
+        <td><code>/api/links</code></td>
+        <td>List all links</td>
+      </tr>
+
+      <tr>
+        <td><span class="method get">GET</span></td>
+        <td><code>/:code</code></td>
+        <td>Redirect to original URL</td>
+      </tr>
+
+      <tr>
+        <td><span class="method delete">DELETE</span></td>
+        <td><code>/api/links/:id</code></td>
+        <td>Delete a link</td>
+      </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>

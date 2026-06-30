@@ -2,6 +2,7 @@ package locke.dustin.minilink.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.validator.constraints.URL;
 
 @Entity
 @Getter @Setter
@@ -14,6 +15,7 @@ public class MiniLink {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @URL
     @Column(name = "original_url", nullable = false)
     private String originalUrl;
 
