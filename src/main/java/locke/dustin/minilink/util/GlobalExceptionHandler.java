@@ -18,14 +18,18 @@ public class GlobalExceptionHandler {
             LoggerFactory.getLogger( GlobalExceptionHandler.class );
 
     @ExceptionHandler(MiniLinkNotFoundException.class)
-    public ResponseEntity<String> handleMiniLinkNotFound(MiniLinkNotFoundException exception,
+    public ResponseEntity<ErrorResponse> handleMiniLinkNotFound(MiniLinkNotFoundException exception,
                                                          String miniCode) {
         logger.warn( "Code {} not found: {}", miniCode, exception.getMessage() );
 
-        return ResponseEntity.status( HttpStatus.NOT_FOUND)
-                                              .body(exception.getMessage() +
-                                                    "\n" +
-                                                    miniCode);
+        ErrorResponse error = new ErrorResponse(
+                exception.getMessage(),
+                LocalDateTime.now( )
+        );
+
+        return ResponseEntity
+                .status( HttpStatus.NOT_FOUND)
+                                              .body(error);
     }
 
     @ExceptionHandler(ExistingAliasException.class)

@@ -1,6 +1,15 @@
 
 <div class="page">
 
+  <div
+    class="toast"
+    [class.show]="showToast"
+    [class.toast-error]="toastType === 'error'">
+
+    {{ toastMessage }}
+
+  </div>
+
   <div class="content">
 
     <div class="card">
@@ -35,6 +44,63 @@
 
     <div *ngIf="error" class="error">
       {{ error }}
+    </div>
+
+    <button
+      class="accordion-btn"
+      (click)="toggleLinks()">
+
+      {{ showLinks ? 'Hide Links' : 'Show Links' }}
+    </button>
+
+    <div
+      *ngIf="showLinks"
+      class="link-list">
+
+      <div
+        *ngFor="let link of links"
+        class="link-row">
+
+        <div class="link-info">
+
+          <div class="short-url">
+            <a [href]="link.shortUrl" target="_blank" rel="noopener noreferrer">
+              {{ link.shortUrl }}
+            </a>
+          </div>
+
+          <div class="original-url">
+            {{ link.originalUrl }}
+          </div>
+
+        </div>
+
+        <div
+          *ngIf="inlineErrors[link.id]"
+          class="inline-error">
+
+          {{ inlineErrors[link.id] }}
+
+        </div>
+
+        <div class="actions">
+
+          <button
+            class="secondary"
+            (click)="copyLink(link.shortUrl)">
+            Copy
+          </button>
+
+          <button
+            class="danger"
+            (click)="deleteLink(link.id)">
+            Delete
+          </button>
+
+        </div>
+
+      </div>
+
     </div>
 
   </div>

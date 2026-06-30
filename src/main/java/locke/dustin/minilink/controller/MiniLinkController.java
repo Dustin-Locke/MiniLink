@@ -11,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.net.URI;
 import java.util.List;
@@ -30,7 +29,6 @@ public class MiniLinkController {
         MiniLink miniUrl = repo.findByMiniCode( miniCode )
                                .orElseThrow(
                                        () -> new MiniLinkNotFoundException(
-                                               HttpStatus.NOT_FOUND,
                                                miniCode
                                        ) );
 
@@ -56,8 +54,10 @@ public class MiniLinkController {
         return service.getAllLinks();
     }
 
-    @DeleteMapping
-    public void  delete( Long id ) {
+    @DeleteMapping("/links/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void  delete( @PathVariable Long id ) {
+
         service.deleteById( id );
     }
 
