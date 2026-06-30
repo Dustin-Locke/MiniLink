@@ -246,19 +246,32 @@ Angular’s default dev server runs on 4200, not 3000.
 ## Project Structure
 
 ```text
-src
-├── main
-│   ├── java
-│   │   └── locke/dustin/minilink
-│   │       ├── controller
-│   │       ├── dto
-│   │       ├── entity
-│   │       ├── repository
-│   │       └── service
-│   └── resources
-│       └── db
-│           └── migration
-└── test
+MiniLink
+├──mini-link-web
+    ├──src
+    │   └── app
+    │       ├── layouts
+    │       ├── models
+    │       ├── pages 
+    |       |   ├── about
+    |       |   ├── api
+    |       |   └── home
+    │       └── shared
+    |           ├── components
+    |           └── resources
+├──src
+    ├── main
+    │   ├── java
+    │   │   └── locke/dustin/minilink
+    │   │       ├── controller
+    │   │       ├── dto
+    │   │       ├── entity
+    │   │       ├── repository
+    │   │       └── service
+    │   └── resources
+    │       └── db
+    │           └── migration
+    └── test
 ```
 
 ---
