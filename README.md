@@ -248,17 +248,17 @@ Angular’s default dev server runs on 4200, not 3000.
 ```text
 MiniLink
 ├──mini-link-web
-    ├──src
-    │   └── app
-    │       ├── layouts
-    │       ├── models
-    │       ├── pages 
-    |       |   ├── about
-    |       |   ├── api
-    |       |   └── home
-    │       └── shared
-    |           ├── components
-    |           └── resources
+|   └──src
+│       └── app
+│           ├── layouts
+│           ├── models
+│           ├── pages 
+|           |   ├── about
+|           |   ├── api
+|           |   └── home
+│           └── shared
+|               ├── components
+|               └── resources
 ├──src
     ├── main
     │   ├── java
