@@ -21,9 +21,9 @@ Frontend
 - Create MiniLinks from a simple UI form
 - View all created links in a dynamic list
 - One-click actions per link:
-- - Open link (direct redirect)
-- - Copy short URL to clipboard
-- - Delete link
+  - Open link (direct redirect)
+  - Copy short URL to clipboard
+  - Delete link
 - Real-time list updates after creation/deletion
 
 ## Tech Stack
