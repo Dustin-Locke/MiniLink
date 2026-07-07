@@ -1,3 +1,8 @@
 package locke.dustin.minilink.dto;
 
-public record MiniLinkResponse( String miniLink ) { }
+public record MiniLinkResponse(
+        Long id,
+        String originalUrl,
+        String miniCode,
+        String shortUrl
+) {}
