@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule }                 from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule }                  from '@angular/forms';
 import { HttpClient }                   from '@angular/common/http';
 import { MiniLink }                     from '../../models/mini-link';
+import { environment }                  from '../../../environments/environment';
 
 @Component({
              selector: 'app-home',
@@ -13,7 +14,7 @@ import { MiniLink }                     from '../../models/mini-link';
            })
 export class HomeComponent implements OnInit, OnDestroy {
 
-  BASE_URL: string = 'http://localhost:8080/api';
+  private readonly API = `${environment.apiUrl}/api`;
   longUrl: string = '';
   loading: boolean = false;
   shortUrl: string | null = null;
@@ -38,7 +39,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.error = null;
     this.shortUrl = null;
 
-    this.http.post<any>(this.BASE_URL, {
+    this.http.post<any>(this.API, {
       originalUrl: this.longUrl,
       customAlias: this.customAlias?.trim() || null
     }).subscribe({
@@ -58,7 +59,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   loadLinks(): void {
     this.http
-        .get<MiniLink[]>('http://localhost:8080/api/links')
+        .get<MiniLink[]>( `${this.API}/links`)
         .subscribe({
                      next: (links) => {
                        this.links = links;
@@ -84,7 +85,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     delete this.inlineErrors[id];
     this.http
-        .delete(`http://localhost:8080/api/links/${id}`)
+        .delete(`${this.API}/links/${id}`)
         .subscribe({
                      next: () => {
                        this.links =

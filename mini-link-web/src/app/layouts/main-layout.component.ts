@@ -6,6 +6,7 @@ import { RouterOutlet }                 from '@angular/router';
 import { FooterComponent }              from '../shared/components/footer/footer.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 
+
 @Component({
              standalone: true,
              selector: 'main-layout',
