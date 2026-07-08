@@ -47,8 +47,9 @@ export class HomeComponent implements OnInit, OnDestroy {
                      this.shortUrl = res.shortUrl || res;
                      this.loading = false;
 
-                     // optional UX improvement
+                     this.longUrl = '';
                      this.customAlias = '';
+                     this.showLinks = false;
                    },
                    error: (err) => {
                      this.error = err.error.message;

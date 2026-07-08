@@ -34,7 +34,7 @@
 }
 
 .method {
-  font-size: 0.75rem;
+  font-size: 0.5rem;
   font-weight: 700;
   padding: 0.2rem 0.75rem;
   border-radius: 6px;
@@ -57,3 +57,17 @@
   color: #991b1b;
 }
 
+@media (max-width: 600px) {
+  .api-table, td, code {
+    font-size: .60rem;
+    box-sizing: border-box;
+    padding: 0.5rem 0.5rem;
+    margin: 0;
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  .method {
+    padding: 0.2rem 0.75rem;
+  }
+}

@@ -1,26 +1,31 @@
-import { Routes } from '@angular/router';
+import { Routes }              from '@angular/router';
 import { MainLayoutComponent } from './layouts/main-layout.component';
-import { HomeComponent } from './pages/home/home.component';
-import { AboutComponent } from './pages/about/about.component';
-import { ApiComponent } from './pages/api/api.component';
+import { HomeComponent }       from './pages/home/home.component';
+import { AboutComponent }      from './pages/about/about.component';
+import { ApiComponent }        from './pages/api/api.component';
+import { AnalyticsComponent }  from './pages/analytics/analytics.component'
 
 
 export const routes: Routes = [
   {
-    path: '',
+    path     : '',
     component: MainLayoutComponent,
-    children: [
+    children : [
       {
-        path: '',
+        path     : '',
         component: HomeComponent
       },
       {
-        path: 'about',
+        path     : 'about',
         component: AboutComponent
       },
       {
-        path: 'api',
+        path     : 'api',
         component: ApiComponent
+      },
+      {
+        path     : 'analytics',
+        component: AnalyticsComponent
       }
     ]
   }
