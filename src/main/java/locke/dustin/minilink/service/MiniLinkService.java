@@ -21,12 +21,13 @@ import java.util.stream.Collectors;
 public class MiniLinkService {
 
     private final MiniLinkRepository repo;
+    private final MiniLinkMapper miniLinkMapper;
 
     public List<MiniLinkResponse> getAllLinks() {
         List<MiniLink> miniLinks = repo.findAll();
         return miniLinks
                 .stream()
-                .map( MiniLinkMapper::toResponse )
+                .map( miniLinkMapper::toResponse )
                 .collect( Collectors.toList( ) );
     }
 
@@ -72,7 +73,7 @@ public class MiniLinkService {
 
         repo.save(miniLink);
 
-        return MiniLinkMapper.toResponse(miniLink);
+        return miniLinkMapper.toResponse(miniLink);
     }
 
     private String normalizeUrl(String url) {

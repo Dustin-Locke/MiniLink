@@ -2,13 +2,22 @@ package locke.dustin.minilink.util;
 
 import locke.dustin.minilink.dto.MiniLinkResponse;
 import locke.dustin.minilink.entity.MiniLink;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
+@Service
 public class MiniLinkMapper {
 
-    private static final String BASE_URL = "http://localhost:8080/api/";
+    private final String baseUrl;
 
-    public static MiniLinkResponse toResponse(MiniLink entity) {
-        String miniLink = BASE_URL + entity.getMiniCode();
+    public MiniLinkMapper(
+            @Value("${minilink.base-url}") String baseUrl
+                         ) {
+        this.baseUrl = baseUrl;
+    }
+
+    public MiniLinkResponse toResponse(MiniLink entity) {
+        String miniLink = baseUrl + entity.getMiniCode();
 
         return new MiniLinkResponse(
                 entity.getId(),
