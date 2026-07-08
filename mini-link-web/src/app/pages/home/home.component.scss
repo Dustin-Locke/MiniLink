@@ -219,3 +219,69 @@ input:focus {
   background: #dc2626;;
 }
 
+@media (max-width: 600px) {
+
+  * {
+    max-width: 100%;
+  }
+
+  .page,
+  .content,
+  .card,
+  .link-list,
+  .result,
+  .error {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  body {
+    overflow-x: hidden;
+  }
+
+  .content {
+    padding: 0 1rem;
+  }
+
+  .form {
+    flex-direction: column;
+  }
+
+  .result,
+  .error {
+    padding: 1rem;
+  }
+
+  .result p {
+    font-size: 1.25rem;
+  }
+
+  .result a {
+    word-break: break-all;
+  }
+
+  .accordion-btn {
+    padding: 1rem;
+  }
+
+  .link-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+
+  .short-url {
+    word-break: break-all;
+  }
+
+  .original-url {
+    white-space: normal;
+    overflow-wrap: break-word;
+  }
+
+  .actions button {
+    flex: 1;
+  }
+
+}
