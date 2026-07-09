@@ -71,14 +71,16 @@ https://minilink-emjv.onrender.com/swagger-ui/index.html
   <kbd>
     <img src="images/about_page.png" alt="Screenshot of about page" width=600>
   </kbd>
-<figurecaption><em>About Page</em></figurecaption>
+  <br>
+  <figurecaption><em>About Page</em></figurecaption>
 </figure>
 <br><br><br>
 <figure>
   <kbd>
     <img src="images/analytics_page.png" alt="Screenshot of about page" width=600>
   </kbd>
-<figurecaption><em>Analytics Page</em></figurecaption>
+  <br>
+  <figurecaption><em>Analytics Page</em></figurecaption>
 </figure>
 <br><br><br>
 
