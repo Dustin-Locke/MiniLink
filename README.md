@@ -1,12 +1,25 @@
 # MiniLink
 
-MiniLink is a lightweight URL shortening service built with Java, Spring Boot, and a modern frontend UI. It provides a REST API for creating shortened URLs and a user interface for managing links, including quick actions like opening, copying, and deleting links.
-
+MiniLink is a lightweight URL shortening service built with Java, Spring Boot, PostgreSQL, and Angular. It provides a REST API for creating shortened URLs, a modern web interface for managing links, and an analytics dashboard for monitoring link creation and redirect activity.
 The application uses PostgreSQL for persistence and Flyway for database version control.
+
+## Live Demo
+
+The application is deployed and publicly available. Because this is hosted with Render's free tier, spool-up time can be up to 50 seconds. <br><em><u>Please be patient.</u></em>
+
+**Frontend:**</br> 
+https://minilink-static.onrender.com/
+
+**Backend API:** </br>
+https://minilink-emjv.onrender.com/
+
+**Swagger/OpenAPI:**
+
+https://minilink-emjv.onrender.com/swagger-ui/index.html
 
 ## Features
 
-Backend
+**Backend**
 - Create shortened URLs from long web addresses
 - Generate unique short codes automatically
 - Create custom aliases for memorable links (e.g. `/google`)
@@ -16,8 +29,11 @@ Backend
 - Version database changes using Flyway migrations
 - Explore and test endpoints through Swagger/OpenAPI documentation
 - Optional custom aliases instead of generated code
+- Track link creation events
+- Record redirect events for analytics
+- Expose analytics data through REST endpoints
 
-Frontend
+**Frontend**
 - Create MiniLinks from a simple UI form
 - View all created links in a dynamic list
 - One-click actions per link:
@@ -25,10 +41,52 @@ Frontend
   - Copy short URL to clipboard
   - Delete link
 - Real-time list updates after creation/deletion
+- Analytics dashboard displaying link statistics
+- View total links created
+- View redirect/click metrics
+- Responsive interface for desktop and mobile
+
+---
+
+## Screenshots
+<br>
+<br>
+<figure>
+  <kbd>
+    <img src="images/home_page.png" alt="Screenshot of home page" width=600>
+  </kbd>
+  <br>
+  <figurecaption><em>Home Page</em></figurecaption>
+</figure>
+<br><br><br>
+<figure>
+  <kbd>
+    <img src="images/home_page_with_links_shown.png" alt="Screenshot of home page with created links shown" width=600>
+  </kbd>
+  <br>
+  <figurecaption><em>Created Links Shown on Home Page</em></figurecaption>
+</figure>
+<br><br><br>
+<figure>
+  <kbd>
+    <img src="images/about_page.png" alt="Screenshot of about page" width=600>
+  </kbd>
+<figurecaption><em>About Page</em></figurecaption>
+</figure>
+<br><br><br>
+<figure>
+  <kbd>
+    <img src="images/analytics_page.png" alt="Screenshot of about page" width=600>
+  </kbd>
+<figurecaption><em>Analytics Page</em></figurecaption>
+</figure>
+<br><br><br>
+
+---
 
 ## Tech Stack
 
-Backend
+**Backend**
 - Java 17
 - Spring Boot
 - Spring Web
@@ -39,12 +97,25 @@ Backend
 - Swagger / OpenAPI
 - Lombok
 
-Frontend
+***Frontend**
 - HTML
-- CSS
+- SCSS
 - Angular
 - Typescript
 - Fetch API for backend communication
+
+## Analytics
+
+MiniLink includes an analytics dashboard that provides insight into application usage.
+
+**Current analytics include:**
+
+- Total MiniLinks created
+- Link creation events
+- Redirect activity
+- Overall application statistics
+
+The analytics page consumes backend REST endpoints to display live application data.
 
 ## API Endpoints
 
@@ -110,7 +181,9 @@ The frontend provides a simple dashboard for managing MiniLinks.
 ## Main Features
 
 ## Create Link Forms
+
 Users can paste long URL and generate MiniLink instantly.
+
 
 ## Link List
 Each created link appears in a list with the following actions:
@@ -135,6 +208,19 @@ src/main/resources/db/migration
 Flyway automatically applies any pending migrations when the application starts.
 
 ---
+
+## Deployment
+
+The frontend and backend are deployed separately.
+
+- Spring Boot backend deployed to Render
+- Angular frontend deployed to Render
+- PostgreSQL database hosted by Render
+
+Environment variables are used to securely configure database credentials and application settings.
+
+---
+
 
 ## Running Backend Locally
 
@@ -168,7 +254,7 @@ Exit psql:
 
 ### 2. Configure Local Properties
 
-Using IntelliJ, add you local username and password to the `Environment Variables`
+Using IntelliJ, add your local username and password to the `Environment Variables`
 
 ```properties
 spring.datasource.url=jdbc:postgresql://localhost:5432/minilink
@@ -248,26 +334,34 @@ Angular’s default dev server runs on 4200, not 3000.
 ```text
 MiniLink
 ├──mini-link-web
-|   └──src
-│       └── app
-│           ├── layouts
-│           ├── models
-│           ├── pages 
-|           |   ├── about
-|           |   ├── api
-|           |   └── home
-│           └── shared
-|               ├── components
-|               └── resources
+│   └──src
+│       ├── app
+│       │   ├── layouts
+│       │   ├── models
+│       │   ├── pages 
+│       │   │   ├── about
+│       │   │   ├── analytics
+│       │   │   ├── api
+│       │   │   └── home
+│       │   └── shared
+│       │       ├── components
+│       │       |       ├── footer
+│       │       |       └── header
+│       │       └── resources
+│       └── environments
 ├──src
     ├── main
     │   ├── java
     │   │   └── locke/dustin/minilink
+    │   │       ├── config
     │   │       ├── controller
     │   │       ├── dto
     │   │       ├── entity
     │   │       ├── repository
-    │   │       └── service
+    │   │       ├── service
+    │   │       ├── type
+    │   │       └── util
+    │   │            └── exception
     │   └── resources
     │       └── db
     │           └── migration
@@ -280,10 +374,10 @@ MiniLink
 
 - Base62 short code generation
 - Link expiration dates
-- Click analytics and usage tracking
 - Unit and integration tests
 - Docker support
 - Authentication (user-specific links)
+- Password-protected links
 - Drag-and-drop link organization
 
 ---
@@ -291,3 +385,6 @@ MiniLink
 ## License
 
 This project is available under the MIT License.
+
+## Author
+Dustin Locke
